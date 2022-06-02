@@ -10,7 +10,7 @@ const ioServer = new Server(httpServer);
 const staticDisplay = express.static('public-display');
 const staticMovile = express.static('public-movile');
 app.use('/display', staticDisplay);
-app.use('/movile', staticmovile);
+app.use('/movile', staticMovile);
 app.use(express.json());
 
 // info a guardar en servidor
@@ -60,12 +60,15 @@ ioServer.on('connection', (socket) => {
 	}
 	// es redundante?
 	tiempoPromedio = tPromedio;
-}
+})
 
 // funciones a comunicar con arduino
+
+/*const n1 = new Number(9600);
+
 const protocolConfiguration = {
 	path: '/dev/ttyACM0',
-	baudrate: 9600
+	baudrate: n1
 }
 
 const port = new SerialPort(protocolConfiguration);
@@ -77,5 +80,5 @@ parser.on('data', (data) => {
 	if (intData === 1) {
 		ioServer.emit('jumping', true);
 	}
-}
+})*/
 

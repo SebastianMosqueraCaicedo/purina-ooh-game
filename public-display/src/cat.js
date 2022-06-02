@@ -14,20 +14,37 @@ class CAT {
 		this.xPos = xPos;
 		this.yPos = yPos;
 		// hitbox
-		this.wide = 10;
-		this.high = 10;
+		this.wide = 90;
+		this.high = 90;
 		// siempre vuelve a esta posicion
 		this.initialPos = yPos;
 		this.vel = vel;
 		this.img = img;
 
 		this.jmp = 10;
+
+
+
+
+		//jp
+		this.jumpCondition = false;
+		this.jumpTime = 40;
+
+
+
+
 	}
 
 	// TODO: "animaciones"
 	draw(){
-		image(this.img, xPos, yPos, this.wide, this.high);
-	}
+	//	image(this.img, this.xPos, this.yPos, this.wide, this.high);
+	rect(this.xPos, this.yPos, this.wide, this.high);
+	this.xPos+=2.;
+	if (this.xPos > windowWidth){ this.xPos = 0;}
+
+	this.salting();
+
+}
 
 	// TODO salto bonito, como se hace?
 	jump(input){
@@ -38,6 +55,27 @@ class CAT {
 			this.jmp -= 2;
 		}
 	}
+
+	salting(){
+
+		if (this.jumpCondition){
+			this.jumpTime--;
+			this.yPos -= this.jumpTime/5
+		}
+
+		if (this.jumpTime === -39){
+			this.jumpCondition =false;
+			this.jumpTime = 40
+		}
+
+
+	}
+
+	getSalto(estado){
+		this.jumpCondition = estado;
+	}
+
+
 
 	// recibe un arreglo de obstaculos y compara hitboxes
 	contact(objArray){
