@@ -21,17 +21,36 @@ class CAT {
 		//jp
 		this.jumpCondition = false;
 		this.jumpTime = 40;
-		this.jmp = 10;
-
+		this.jmp = 15;
+		this.estado = 0;
+		this.vel = 0.8;
 	}
 
 	// TODO: "animaciones"
 	draw(){
 	//	image(this.img, this.xPos, this.yPos, this.wide, this.high);
-	rect(this.xPos, this.yPos, this.wide, this.high);
+	//rect(this.xPos, this.yPos, this.wide, this.high);
 
+	image(this.img[this.estado],this.xPos,this.yPos);
 	this.salting();
 
+	this.jmp--;
+	if (this.jmp===0 ) {
+		this.estado++;
+		this.jmp=15;
+
+		
+	}
+
+	this.xPos += this.vel;
+
+if (this.estado===2) {
+			this.estado=0
+			this.vel *= -1;
+			
+		}
+
+		
 	}
 
 	salting(){
