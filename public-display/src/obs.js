@@ -14,11 +14,14 @@ class OBJ {
 		this.wide = wide;
 		this.high = high;
 
-		this.img;
+		this.img = img;
 	}
 	
 	draw(){
-		// image(this.img, this.xPos, this.yPos, this.wide, this.high);
-		rect(this.xPos, this.yPos, this.wide, this.high);
+		image(this.img, this.xPos, this.yPos);
+		this.xPos-=8;
+		if(this.xPos < -100 ){ this.xPos = random(windowWidth+50, windowWidth + 500)}
+		
+		//rect(this.xPos, this.yPos, this.wide, this.high);
 	}
 }

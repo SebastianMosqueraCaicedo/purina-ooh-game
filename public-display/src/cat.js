@@ -21,9 +21,9 @@ class CAT {
 		//jp
 		this.jumpCondition = false;
 		this.jumpTime = 40;
-		this.jmp = 15;
+		this.jmp = 20;
 		this.estado = 0;
-		this.vel = 0.8;
+		this.vel = 0.6;
 	}
 
 	// TODO: "animaciones"
@@ -37,7 +37,7 @@ class CAT {
 	this.jmp--;
 	if (this.jmp===0 ) {
 		this.estado++;
-		this.jmp=15;
+		this.jmp=20;
 
 		
 	}
