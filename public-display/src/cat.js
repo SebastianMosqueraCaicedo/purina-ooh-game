@@ -10,25 +10,18 @@
 */
 
 class CAT {
-	constructor(xPos, yPos, vel, img){
+	constructor(xPos, yPos, img){
 		this.xPos = xPos;
 		this.yPos = yPos;
 		// hitbox
 		this.wide = 90;
 		this.high = 90;
 		// siempre vuelve a esta posicion
-		this.initialPos = yPos;
-		this.vel = vel;
 		this.img = img;
-
-		this.jmp = 10;
-
 		//jp
 		this.jumpCondition = false;
 		this.jumpTime = 40;
-
-
-
+		this.jmp = 10;
 
 	}
 
@@ -39,16 +32,6 @@ class CAT {
 
 	this.salting();
 
-}
-
-	// TODO salto bonito, como se hace?
-	jump(input){
-		if(input && this.yPos <= this.initialPos){
-			this.yPos += this.jmp;
-		}
-		if(this.jmp >= -10){
-			this.jmp -= 2;
-		}
 	}
 
 	salting(){
