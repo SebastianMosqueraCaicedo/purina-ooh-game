@@ -23,9 +23,6 @@ class CAT {
 
 		this.jmp = 10;
 
-
-
-
 		//jp
 		this.jumpCondition = false;
 		this.jumpTime = 40;
@@ -39,8 +36,6 @@ class CAT {
 	draw(){
 	//	image(this.img, this.xPos, this.yPos, this.wide, this.high);
 	rect(this.xPos, this.yPos, this.wide, this.high);
-	this.xPos+=2.;
-	if (this.xPos > windowWidth){ this.xPos = 0;}
 
 	this.salting();
 
@@ -71,11 +66,12 @@ class CAT {
 
 	}
 
-	getSalto(estado){
+	setSalto(estado){
 		this.jumpCondition = estado;
 	}
-
-
+	getSalto(){
+		this.jumpCondition;
+	}
 
 	// recibe un arreglo de obstaculos y compara hitboxes
 	contact(objArray){

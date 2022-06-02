@@ -1,7 +1,7 @@
 // Requerimientos
 const express = require('express');
 const { Server } = require( 'socket.io' );
-const { SerialPort, ReadlineParser} = require('serialport');
+// const { SerialPort, ReadlineParser} = require('serialport');
 const app = express();
 const httpServer = app.listen(5050);
 const ioServer = new Server(httpServer);
