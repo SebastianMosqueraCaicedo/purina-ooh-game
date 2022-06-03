@@ -14,14 +14,19 @@ class OBJ {
 		this.wide = wide;
 		this.high = high;
 
-		this.img = img;
+		this.img =img;
 	}
 	
 	draw(){
 		image(this.img, this.xPos, this.yPos);
 		this.xPos-=8;
-		if(this.xPos < -100 ){ this.xPos = random(windowWidth+50, windowWidth + 500)}
-		
+		if(this.xPos < -100){
+			this.xPos = windowWidth+random(100,400)
+		}
 		//rect(this.xPos, this.yPos, this.wide, this.high);
+	}
+
+	getPos(){
+		return {x : this.xPos, y : this.yPos};
 	}
 }

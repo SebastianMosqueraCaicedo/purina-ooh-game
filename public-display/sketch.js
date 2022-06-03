@@ -5,8 +5,11 @@ let screens = 0;
 let catSprite = [];
 let box;
 let BG;
+let final;
+
 let velo = 8;
-let BgPos = -20000;
+let BgPos = -0;
+let boxes = [];
 //VARIABLES HTML
 let inputName;
 let inputEmail;
@@ -53,34 +56,56 @@ function buttonContinueAction() {
   
 }
 
+function hitboxesContact(a,b){
+
+  if (dist(a.x+106,a.y+106,b.x+53,b.y+53) < 170){
+    screens = 1;
+    console.log("touch")
+  }
+
+}
+
 function preload() {
   BG = loadImage('assets/fondo.png');
-  catSprite = [loadImage('assets/gato1.png'),loadImage('assets/gato2.png')]
+  final = loadImage('assets/pantallafinal.jpg');
+  box = loadImage('assets/caja.png');
+ // BG = loadImage('assets/fondo.png');
+ // BG = loadImage('assets/fondo.png');
+  catSprite = [loadImage('assets/gato1.png'),loadImage('assets/gato2.png')];
 }
 
 
 function setup() {
     frameRate(60);
     createCanvas(windowWidth, windowHeight);
+
     Felix = new CAT(30,660,catSprite);
+
+    for (let i = 0; i < 2; i++) {
+      boxes.push(new OBJ(1200+(i*1000),765,1,1,box))
+    }
+    
+
+
+
     inputName = createInput('');
-    inputName.position(windowWidth / 2, 150);
+    inputName.position(windowWidth / 2.25, 250);
     inputName.size(300);
     inputName.hide();
 
     inputEmail = createInput('');
     inputEmail.size(300);
-    inputEmail.position(windowWidth / 2, 250);
+    inputEmail.position(windowWidth / 2.25, 350);
     inputEmail.hide();
 
     buttonSkip = createButton('Omitir');
-    buttonSkip.position(windowWidth / 2, 350);
+    buttonSkip.position(windowWidth / 2.25, 450);
     buttonSkip.size(300);
     buttonSkip.hide();
     buttonSkip.mousePressed(buttonSkipAction);
 
     buttonContinue = createButton('Continuar');
-    buttonContinue.position(windowWidth / 2, 450);
+    buttonContinue.position(windowWidth / 2.25, 550);
     buttonContinue.hide();
     buttonContinue.size(300);
     buttonContinue.mousePressed(buttonContinueAction);
@@ -91,18 +116,30 @@ function setup() {
 }
 
 function draw() {
-    background(0, 15);
+    background(20,0,0);
+
+    
+
     switch (screens) {
       case 0: 
       image(BG,BgPos,0);
       Felix.draw();
-      if (BgPos < BG.width * -1 ) {
+
+      boxes.forEach(e => {
+        e.draw();
+        hitboxesContact(Felix.getpos(),e.getPos())
+      });
+
+
+      if (BgPos- 2000< BG.width * -1 ) {
         screens = 1;
       }
       BgPos-= velo;
         break;
 
         case 1:
+
+        image(final,0,0);
         inputEmail.show();
         inputName.show();
         buttonContinue.show();
