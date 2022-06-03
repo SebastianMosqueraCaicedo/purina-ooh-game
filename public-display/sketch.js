@@ -38,20 +38,24 @@ let [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeco
 let userInput;
 let sizeButton = 60;
 let hasStart = false;
+let showthem = true;
 
 function buttonSkipAction() {
-  screen = 2;
+  screens= 3;
   gatherParticipantData(undefined);
   sendParticipant(participant);
+  
 }
 
 function buttonContinueAction() {
-  screen = 3;
+  screens= 3;
   let participantData = {
     name: inputName.value(),
     email: inputEmail.value(),
 
   }
+  
+  showthem = false
 
 
   gatherParticipantData(participantData);
@@ -89,9 +93,6 @@ function setup() {
       boxes.push(new OBJ(1200+(i*1000),765,1,1,box))
     }
     
-
-
-
     inputName = createInput('');
     inputName.position(windowWidth / 2.25, 250);
     inputName.size(300);
@@ -125,8 +126,6 @@ let backcount = 30;
 function draw() {
     background(20,0,0);
 
-    
-
     switch (screens) {
       
       
@@ -153,7 +152,6 @@ function draw() {
         }
       }
 
-
       if (started===true){
       
       Felix.draw();
@@ -162,7 +160,6 @@ function draw() {
         e.draw();
         hitboxesContact(Felix.getpos(),e.getPos())
       });
-
 
       if (BgPos- 2000< BG.width * -1 ) {
         screens = 2;
@@ -179,7 +176,6 @@ function draw() {
         text('name', windowWidth/2.25, 240);
         fill(0);
 
-
         textSize(22);
         text('e-mail', windowWidth/2.25, 340);
         fill(0);
@@ -190,7 +186,14 @@ function draw() {
         buttonSkip.show();
         break;
       
-    
+        case 3:
+          
+           image(final,0,0);
+           
+        inputEmail.hide();
+        inputName.hide();
+        buttonContinue.hide();
+        buttonSkip.hide();
       default:
         break;
     }
