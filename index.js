@@ -1,10 +1,19 @@
 // Requerimientos
 const express = require('express');
 const { Server } = require( 'socket.io' );
+const cors = require('cors');
 // const { SerialPort, ReadlineParser} = require('serialport');
 const app = express();
 const httpServer = app.listen(5050);
 const ioServer = new Server(httpServer);
+
+//Aquí traemos firebase
+const db = require('./firebaseConfig');
+
+const addParticipant = async function (participant) {
+    const res = await db.collection('participants').add(participant);
+    console.log('Added document with ID: ', res.id);
+}
 
 // Usuarios
 const staticDisplay = express.static('public-display');
@@ -12,6 +21,9 @@ const staticMovile = express.static('public-movile');
 app.use('/display', staticDisplay);
 app.use('/movile', staticMovile);
 app.use(express.json());
+app.use(cors({
+    origin: '*'
+}));
 
 // info a guardar en servidor
 /* cuanta gente pasa?
@@ -82,3 +94,9 @@ parser.on('data', (data) => {
 	}
 })*/
 
+app.post('/participant', (request, response) => {
+    console.log(request.body)
+    addParticipant(request.body);
+    response.end();
+    //console.log(players);
+});
