@@ -3,9 +3,12 @@ let socket = io();
 let Felix;
 let screens = 0;
 let catSprite = [];
+let Counters = [];
 let box;
+let tuto;
 let BG;
 let final;
+let started = false;
 
 let velo = 8;
 let BgPos = -0;
@@ -58,8 +61,8 @@ function buttonContinueAction() {
 
 function hitboxesContact(a,b){
 
-  if (dist(a.x+106,a.y+106,b.x+53,b.y+53) < 170){
-    screens = 1;
+  if (dist(a.x+106,a.y+106,b.x+53,b.y+53) < 160){
+    screens = 2;
     console.log("touch")
   }
 
@@ -68,10 +71,11 @@ function hitboxesContact(a,b){
 function preload() {
   BG = loadImage('assets/fondo.png');
   final = loadImage('assets/pantallafinal.jpg');
-  box = loadImage('assets/caja.png');
- // BG = loadImage('assets/fondo.png');
- // BG = loadImage('assets/fondo.png');
+  box = loadImage('assets/caja.jpg');
+  tuto = loadImage('assets/tuto.png');
   catSprite = [loadImage('assets/gato1.png'),loadImage('assets/gato2.png')];
+  Counters = [loadImage('assets/count1.png'),loadImage('assets/count2.png'),
+  loadImage('assets/count3.png')];
 }
 
 
@@ -115,14 +119,43 @@ function setup() {
         hasStart = true;
 }
 
+let statecounter = 0;
+let backcount = 30;
+
 function draw() {
     background(20,0,0);
 
     
 
     switch (screens) {
-      case 0: 
+      
+      
+      case 0:
+
       image(BG,BgPos,0);
+      image(tuto,0,0);
+
+        break;
+      
+      case 1: 
+
+      image(BG,BgPos,0);
+
+      if (started=== false) {
+        image(Counters[statecounter],0,0);
+        backcount--;
+        if (backcount === 0) {
+          statecounter ++;
+          backcount = 30;
+        }
+        if (statecounter === 3){
+          started = true
+        }
+      }
+
+
+      if (started===true){
+      
       Felix.draw();
 
       boxes.forEach(e => {
@@ -132,14 +165,25 @@ function draw() {
 
 
       if (BgPos- 2000< BG.width * -1 ) {
-        screens = 1;
+        screens = 2;
       }
       BgPos-= velo;
+    }
         break;
 
-        case 1:
+        case 2:
 
         image(final,0,0);
+        textSize(22);
+
+        text('name', windowWidth/2.25, 240);
+        fill(0);
+
+
+        textSize(22);
+        text('e-mail', windowWidth/2.25, 340);
+        fill(0);
+        
         inputEmail.show();
         inputName.show();
         buttonContinue.show();
@@ -156,7 +200,13 @@ function draw() {
 
 function mouseClicked() {
         console.log("hi");
-        Felix.setSalto(true);
+       
+       if (started) {Felix.setSalto(true);
+       }
+       
+        if (!started) {
+          screens = 1
+        }
 }
 
 
